@@ -75,5 +75,5 @@ function showdate() {
 	else
 		day = af_digits[parseInt(day)];
 	afyear = af_digits[af_first] + af_digits[af_second] + af_digits[af_third] + af_digits[af_fourth];
-	document.write(week[d] + " &#1583; " + afyear + " &#1604;&#1605;&#1585;&#1610;&#1586; &#1705;&#1575;&#1604; &#1583; " + months[month - 1] + " " + day);
+	return week[d] + " &#1583; " + afyear + " &#1604;&#1605;&#1585;&#1610;&#1586; &#1705;&#1575;&#1604; &#1583; " + months[month - 1] + " " + day;
 }
