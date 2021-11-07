@@ -39,14 +39,8 @@ function gregorian_to_jalali(g_y, g_m, g_d) {
 
 
 function showdate() {
-	week = new Array("يکشنبه", "دوشنبه", "سېشنبه",
-		"چارشنبه", "پنجشنبه", "جمعه", "شنبه"
-	);
-	months = new Array("وري", "غويي",
-		"غبرګولي", "چنګاښ",
-		"زمري", "وږي", "تلې", "لړم",
-		"ليندۍ", "مرغومې", "سلواغې",
-		"کب");
+	let week = ["يکشنبه", "دوشنبه", "سېشنبه","چارشنبه", "پنجشنبه", "جمعه", "شنبه"];
+	months = ["وري", "غويي" ,"غبرګولي", "چنګاښ","زمري", "وږي", "تلې", "لړم","ليندۍ", "مرغومې", "سلواغې","کب"];
 	a = new Date();
 	d = a.getDay();
 	day = a.getDate();
@@ -76,3 +70,9 @@ function showdate() {
 	afyear = af_digits[af_first] + af_digits[af_second] + af_digits[af_third] + af_digits[af_fourth];
 	return week[d] + " د " + afyear + " لمريز کال د " + months[month - 1] + " " + day;
 }
+
+function div(a,b) {
+    return Math.floor((a / b));
+}
+
+console.log(showdate());
