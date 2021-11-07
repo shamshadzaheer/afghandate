@@ -12,17 +12,17 @@ function gregorian_to_jalali(g_y, g_m, g_d) {
 		g_day_no += g_days_in_month[i];
 	}
 	if (gm > 1 && ((gy % 4 == 0 && gy % 100 != 0) || (gy % 400 == 0))) {
-		/* leap and after Feb */
+		// leap and after Feb 
 		g_day_no++;
 	}
 	g_day_no += gd;
 
 	j_day_no = g_day_no - 79;
 
-	j_np = divide(j_day_no, 12053); /* 12053 = 365*33 + 32/4 */
+	j_np = divide(j_day_no, 12053); // 12053 = 365*33 + 32/4
 	j_day_no = j_day_no % 12053;
 
-	jy = 979 + 33 * j_np + 4 * divide(j_day_no, 1461); /* 1461 = 365*4 + 4/4 */
+	jy = 979 + 33 * j_np + 4 * divide(j_day_no, 1461); // 1461 = 365*4 + 4/4
 
 	j_day_no %= 1461;
 
@@ -38,7 +38,12 @@ function gregorian_to_jalali(g_y, g_m, g_d) {
 	jm = i + 1;
 	jd = j_day_no + 1;
 
-	return [jy, jm, jd];
+	return {
+		year: jy, 
+		month: jm, 
+		day: jd,
+		toString: `${jd}/${jm}/${jy}`,
+	};
 }
 
 
@@ -52,9 +57,9 @@ function showdate() {
 	year = a.getFullYear();
 
 	afghan = gregorian_to_jalali(year, month, day);
-	year = afghan[0];
-	month = afghan[1];
-	day = afghan[2];
+	year = afghan.year;
+	month = afghan.month;
+	day = afghan.day;
 
 	af_digits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
 	year = year + "";
