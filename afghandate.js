@@ -1,28 +1,28 @@
 function gregorian_to_jalali(g_y, g_m, g_d) {
-	g_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-	j_days_in_month = [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29];
+	let g_days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+	let j_days_in_month = [31, 31, 31, 31, 31, 31, 30, 30, 30, 30, 30, 29];
 
-	gy = g_y - 1600;
-	gm = g_m - 1;
-	gd = g_d - 1;
+	let gy = g_y - 1600;
+	let gm = g_m - 1;
+	let gd = g_d - 1;
 
-	g_day_no = 365 * gy + divide(gy + 3, 4) - divide(gy + 99, 100) + divide(gy + 399, 400);
+	let g_day_no = 365 * gy + divide(gy + 3, 4) - divide(gy + 99, 100) + divide(gy + 399, 400);
 
-	for (i = 0; i < gm; ++i) {
+	for (let i = 0; i < gm; ++i) {
 		g_day_no += g_days_in_month[i];
 	}
 	if (gm > 1 && ((gy % 4 == 0 && gy % 100 != 0) || (gy % 400 == 0))) {
-		// leap and after Feb 
+		// leap and after Feb
 		g_day_no++;
 	}
 	g_day_no += gd;
 
-	j_day_no = g_day_no - 79;
+	let j_day_no = g_day_no - 79;
 
-	j_np = divide(j_day_no, 12053); // 12053 = 365*33 + 32/4
+	let j_np = divide(j_day_no, 12053); // 12053 = 365*33 + 32/4
 	j_day_no = j_day_no % 12053;
 
-	jy = 979 + 33 * j_np + 4 * divide(j_day_no, 1461); // 1461 = 365*4 + 4/4
+	let jy = 979 + 33 * j_np + 4 * divide(j_day_no, 1461); // 1461 = 365*4 + 4/4
 
 	j_day_no %= 1461;
 
@@ -31,16 +31,16 @@ function gregorian_to_jalali(g_y, g_m, g_d) {
 		j_day_no = (j_day_no - 1) % 365;
 	}
 
-	for (i = 0; i < 11 && j_day_no >= j_days_in_month[i]; ++i) {
+	for (var i = 0; i < 11 && j_day_no >= j_days_in_month[i]; ++i) {
 		j_day_no -= j_days_in_month[i];
 	}
 
-	jm = i + 1;
-	jd = j_day_no + 1;
+	let jm = i + 1;
+	let jd = j_day_no + 1;
 
 	return {
-		year: jy, 
-		month: jm, 
+		year: jy,
+		month: jm,
 		day: jd,
 		toString: `${jd}/${jm}/${jy}`,
 	};
@@ -49,24 +49,24 @@ function gregorian_to_jalali(g_y, g_m, g_d) {
 
 function showdate() {
 	let week = ["يکشنبه", "دوشنبه", "سېشنبه","چارشنبه", "پنجشنبه", "جمعه", "شنبه"];
-	months = ["وري", "غويي" ,"غبرګولي", "چنګاښ","زمري", "وږي", "تلې", "لړم","ليندۍ", "مرغومې", "سلواغې","کب"];
-	a = new Date();
-	d = a.getDay();
-	day = a.getDate();
-	month = a.getMonth() + 1;
-	year = a.getFullYear();
+	let months = ["وري", "غويي" ,"غبرګولي", "چنګاښ","زمري", "وږي", "تلې", "لړم","ليندۍ", "مرغومې", "سلواغې","کب"];
+	let a = new Date();
+	let d = a.getDay();
+	let day = a.getDate();
+	let month = a.getMonth() + 1;
+	let year = a.getFullYear();
 
-	afghan = gregorian_to_jalali(year, month, day);
+	let afghan = gregorian_to_jalali(year, month, day);
 	year = afghan.year;
 	month = afghan.month;
 	day = afghan.day;
 
-	af_digits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
+	let af_digits = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
 	year = year + "";
-	af_first = parseInt(year.substring(0, 1));
-	af_second = parseInt(year.substring(1, 2));
-	af_third = parseInt(year.substring(2, 3));
-	af_fourth = parseInt(year.substring(3, 4));
+	let af_first = parseInt(year.substring(0, 1));
+	let af_second = parseInt(year.substring(1, 2));
+	let af_third = parseInt(year.substring(2, 3));
+	let af_fourth = parseInt(year.substring(3, 4));
 
 	day = day + "";
 
@@ -75,7 +75,7 @@ function showdate() {
 	} else {
 		day = af_digits[parseInt(day)];
 	}
-	afyear = af_digits[af_first] + af_digits[af_second] + af_digits[af_third] + af_digits[af_fourth];
+	let afyear = af_digits[af_first] + af_digits[af_second] + af_digits[af_third] + af_digits[af_fourth];
 	return week[d] + " د " + afyear + " لمريز کال د " + months[month - 1] + " " + day;
 }
 
@@ -83,4 +83,4 @@ function divide(a,b) {
     return Math.floor((a / b));
 }
 
-console.log(showdate());
+export default showdate;
